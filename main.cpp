@@ -2,9 +2,9 @@
 #include <PubSubClient.h>
 #include <WiFiNINA.h>
 
-const char* ssid = "gęsi pipek";
-const char* password = "Rakowicka@2021";
-const char* mqttServer = "192.168.0.24";
+const char* ssid = "#";
+const char* password = "#";
+const char* mqttServer = "#";
 const int mqttPort = 1883;
 const char* mqttTopic = "led/control";
 const char* mqttButtonTopic = "button/pressed";
@@ -13,15 +13,15 @@ const char* mqttButtonCountTopic2 = "/double";
 const char* mqttConnected = "connected/true";
 const char* mqttClientID = "arduino-client";
 const char* mqttAnalogRead = "analog/read";
-const char* mqtt_username = "admin";
-const char* mqtt_password = "LVProject11";
+const char* mqtt_username = "#";
+const char* mqtt_password = "#";
 
 const char* mqttButtonnumber1 = "/1";
 const char* mqttButtonnumber2 = "/2";
 
 bool doubleClickEnable = true;
 
-// set PushButton pin number
+
 const int buttonPin = 2;
 const int buttonPin2 = 4;
 
@@ -45,9 +45,9 @@ WiFiClient wifiClient;
 PubSubClient mqttClient(wifiClient);
 
 void setup() {
-  // put your setup code here, to run once:
   
-  // initialize the LED pin as an output:
+  
+  
   pinMode(buttonPin ,INPUT);
   pinMode(buttonPin2 ,INPUT);
   
@@ -64,13 +64,11 @@ void loop() {
   }
 
   mqttClient.loop();
-
-    // Read the potentiometer value
   int potValue = analogRead(A1);
 
-  // Adjust the initial value based on the potentiometer reading
+
   int adjustedValue = initialValue + map(potValue, 0, 1023, -10, 10);
-  // The adjusted value can be used in your MQTT messages or other logic
+
 
   if (mqttClient.connected()) {
     String fullTopic = String(mqttAnalogRead);
@@ -103,7 +101,6 @@ void loop() {
         mqttClient.publish(fullTopic2.c_str(), "PRESSED_DOUBLE_1");
       }
 
-     //set variables back to 0
       timePress = 0;
       timePressLimit = 0;
       clicks = 0;      
@@ -200,10 +197,8 @@ void handleMqttMessage(char* topic, byte* payload, unsigned int length) {
     message += (char)payload[i];
   }
 
-  // Convert the received message to an integer
   int receivedValue = message.toInt();
 
-  // Use the received value as the new initial value
   initialValue = receivedValue;
 
   Serial.print("Received new initial value: ");
