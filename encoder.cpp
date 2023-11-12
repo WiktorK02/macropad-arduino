@@ -2,13 +2,13 @@
 #include <PubSubClient.h>
 #include <WiFiNINA.h>
 
-const char* ssid = "gęsi pipek";
-const char* password = "Rakowicka@2021";
-const char* mqtt_server = "192.168.0.24";
+const char* ssid = "#";
+const char* password = "#";
+const char* mqtt_server = "#";
 const char* mqtt_topic = "analog/read";
 const char* mqtt_button_topic = "button/click";
-const char* mqtt_username = "admin";
-const char* mqtt_password = "LVProject11";
+const char* mqtt_username = "#";
+const char* mqtt_password = "#";
 
 int btnPin = 3;
 int DT = 4;
@@ -21,8 +21,8 @@ int lastAngle = 0;
 int aState;
 int aLastState;
 
-WiFiClient wifiClient; // Create an instance of WiFiClient
-PubSubClient mqttClient(wifiClient); // Create an instance of the PubSubClient
+WiFiClient wifiClient; 
+PubSubClient mqttClient(wifiClient); 
 
 void pressHandler(BfButton *btn, BfButton::press_pattern_t pattern) {
   switch (pattern) {
@@ -64,9 +64,9 @@ void loop() {
 
   if (aState != aLastState) {
     if (digitalRead(DT) != aState) {
-      angle = 1; // Set angle to 1 for increment
+      angle = 1; 
     } else {
-      angle = -1; // Set angle to -1 for decrement
+      angle = -1; 
     }
     if (!mqttClient.connected()) {
     // Reconnect to MQTT broker
